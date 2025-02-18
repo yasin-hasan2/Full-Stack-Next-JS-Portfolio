@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "About",
+  description: "About Page",
+};
+
 export default function About() {
   const stats = [
     { label: "Years Experience", value: "5+" },
@@ -22,7 +27,7 @@ export default function About() {
   ];
 
   return (
-    <div className="p-8 md:p-12">
+    <div className="p-8 md:p-12 bg-white text-black dark:bg-black dark:text-white">
       <h1 className="text-3xl md:text-4xl font-bold mb-8" data-aos="fade-up">
         About Me
       </h1>

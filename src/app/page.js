@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 // import profile from "/public/img/IMG_0098.jpg";
+import socialmediaicons from "./components/socialmediaicons";
 
 export default function Home() {
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen bg-white text-black dark:bg-black dark:text-white">
       <div
         className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center"
         data-aos="fade-right"
@@ -25,6 +26,9 @@ export default function Home() {
             More About Me
           </button>
         </Link>
+        <div>
+          <socialmediaicons />
+        </div>
       </div>
       <div className="w-full md:w-1/2 bg-gray-100 min-h-[50vh] md:min-h-screen">
         {/* <Image

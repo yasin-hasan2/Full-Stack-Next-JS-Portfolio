@@ -5,4 +5,8 @@ const config = {
   },
 };
 
+// module.exports = {
+//   reactStrictMode: true,
+// };
+
 export default config;
