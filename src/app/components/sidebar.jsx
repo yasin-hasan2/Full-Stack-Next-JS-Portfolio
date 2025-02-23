@@ -13,6 +13,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import DarkAndLightButton from "./DarkAndLightButton";
 
 const navigation = [
   { name: "Home", href: "/", icon: Home },
@@ -56,6 +57,8 @@ export default function Sidebar() {
           className="fixed top-4 left-4 z-50 p-2 bg-orange-500 text-white rounded-md"
         >
           {isOpen ? <X /> : <Menu />}
+          {/* custom Menu button */}
+          {/* <MenuButton isOpen={isOpen} /> */}
         </button>
       )}
       <aside
@@ -66,14 +69,19 @@ export default function Sidebar() {
       >
         <div className="flex flex-col h-full">
           <div className="mb-8">
-            <div className="w-20 h-20 rounded-full overflow-hidden mb-4">
-              <img
-                src={`https://static.vecteezy.com/system/resources/previews/027/951/137/non_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png`}
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
+            <div className="flex items-center justify-between space-x-4 mb-4 ">
+              <div className="w-20 h-20 rounded-full overflow-hidden mb-4">
+                <img
+                  src={`https://static.vecteezy.com/system/resources/previews/027/951/137/non_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png`}
+                  alt="Profile"
+                  className="w-full h-full object-cover border-4 border-white rounded-full shadow-2xl "
+                />
+              </div>
+              <div className="p-2  rounded-full">
+                <DarkAndLightButton />
+              </div>
             </div>
-            <h2 className="text-xl font-bold text-white">Your Name</h2>
+            <h2 className="text-xl font-bold text-white"> Yasin Al Hasan </h2>
             <p className="text-white/80">Developer & Designer</p>
           </div>
 
