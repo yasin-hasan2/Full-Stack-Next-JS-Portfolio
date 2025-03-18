@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import Sidebar from "./components/sidebar";
 import AOSInit from "./components/aos-init";
 // import { ThemeProvider } from "next-themes";
-import ThemeProviderWrapper from "./components/ThemeProviderWrapper"; // Import the client component
+// import ThemeProviderWrapper from "./components/ThemeProviderWrapper"; // Import the client component
+import { ThemeProvider } from "./components/theme-provider";
 // import { ThemeProvider } from "@/app/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,7 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`inter.className `}>
-        <ThemeProviderWrapper
+        <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
@@ -34,7 +35,7 @@ export default function RootLayout({ children }) {
               {children}
             </main>
           </div>
-        </ThemeProviderWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -5,8 +5,8 @@ const config = {
   },
 };
 
-// module.exports = {
-//   reactStrictMode: true,
-// };
+module.exports = {
+  darkMode: "class", // Ensures Tailwind handles dark mode correctly
+};
 
 export default config;

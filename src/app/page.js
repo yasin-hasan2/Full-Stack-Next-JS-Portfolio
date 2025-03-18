@@ -25,14 +25,14 @@ export default function Home() {
           {/* <button className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 animate-gradient text-white px-6 py-3 rounded-lg w-fit hover:opacity-90 transition-opacity">
             More About Me
           </button> */}
-          {/* /* From Uiverse.io by themrsami  */}
+
           <button class="group relative px-10 py-5 rounded-lg bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-400 animate-gradient text-black font-bold tracking-wider uppercase text-sm hover:from-yellow-500 hover:via-amber-600 hover:to-yellow-700 transition-opacity transform hover:rotate-1  duration-300 ease-out shadow-[0_0_20px_rgba(251,191,36,0.5)] hover:shadow-[0_0_30px_rgba(251,191,36,0.7)] active:scale-90 overflow-hidden before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-amber-400/50 before:transition-all before:duration-300 hover:before:border-amber-300 hover:before:scale-105">
             <span class="flex items-center gap-2 relative z-10">
               <svg
                 stroke="currentColor"
                 fill="none"
                 viewBox="0 0 24 24"
-                class="w-5 h-5"
+                class="w-5 h-5 animate-spin duration-1000 "
               >
                 <path
                   stroke-linecap="round"

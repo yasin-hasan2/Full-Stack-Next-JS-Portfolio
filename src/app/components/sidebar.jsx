@@ -12,6 +12,7 @@ import {
   Star,
   Menu,
   X,
+  LayoutDashboard,
 } from "lucide-react";
 import DarkAndLightButton from "./DarkAndLightButton";
 
@@ -24,7 +25,6 @@ const navigation = [
   { name: "Contact", href: "/contact", icon: MessageSquare },
 ];
 
-// Helper function to join classnames
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -33,6 +33,8 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [mounted, setMounted] = useState(false); // Prevent mismatch
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -40,25 +42,42 @@ export default function Sidebar() {
     };
     checkIsMobile();
     window.addEventListener("resize", checkIsMobile);
+
+    // Simulating user authentication
+    // In a real app, you'd get this from your auth system
+    setUserEmail("yaseenalhassan2@gmail.com");
+
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
+  const showDashboard = userEmail === "yaseenalhassan2@gmail.com";
+
+  //  error handle
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null; // Prevent mismatch
+
+  //   const [isClient, setIsClient] = useState(false);
+
+  // useEffect(() => {
+  //   setIsClient(true);
+  // }, []);
+
+  // if (!isClient) return null; // Avoid SSR rendering mismatch
+
   return (
-    <div
-      style={{ backdropFilter: "blur(50px)" }}
-      className={` w-full fixed top-0 z-50  transition-all ease-in duration-1000 
-      `}
-    >
+    <>
       {isMobile && (
         <button
           onClick={toggleSidebar}
           className="fixed top-4 left-4 z-50 p-2 bg-orange-500 text-white rounded-md"
         >
           {isOpen ? <X /> : <Menu />}
-          {/* custom Menu button */}
-          {/* <MenuButton isOpen={isOpen} /> */}
         </button>
       )}
       <aside
@@ -81,7 +100,7 @@ export default function Sidebar() {
                 <DarkAndLightButton />
               </div>
             </div>
-            <h2 className="text-xl font-bold text-white"> Yasin Al Hasan </h2>
+            <h2 className="text-xl font-bold text-white">Your Name</h2>
             <p className="text-white/80">Developer & Designer</p>
           </div>
 
@@ -107,6 +126,21 @@ export default function Sidebar() {
                   </li>
                 );
               })}
+              {showDashboard && (
+                <li>
+                  <Link
+                    href="/dashboard"
+                    className={classNames(
+                      "flex items-center space-x-3 px-4 py-2 rounded-lg text-white/90 hover:bg-white/10 transition-colors",
+                      pathname.startsWith("/dashboard") && "bg-white/20"
+                    )}
+                    onClick={() => isMobile && setIsOpen(false)}
+                  >
+                    <LayoutDashboard className="w-5 h-5" />
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
 
@@ -115,6 +149,6 @@ export default function Sidebar() {
           </div>
         </div>
       </aside>
-    </div>
+    </>
   );
 }
