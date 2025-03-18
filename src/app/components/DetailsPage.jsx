@@ -57,8 +57,6 @@ import Link from "next/link";
 //   },
 // ]
 
-// Add more sample projects if needed
-
 export default function ProjectDetails({ singleProject }) {
   console.log(singleProject);
   const params = useParams();
@@ -99,7 +97,7 @@ export default function ProjectDetails({ singleProject }) {
     };
 
     fetchProject();
-  }, [params.id, singleProject]);
+  }, [params._id, singleProject]);
 
   if (loading) {
     return (
