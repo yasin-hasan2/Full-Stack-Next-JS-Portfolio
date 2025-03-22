@@ -5,7 +5,7 @@ import JoditEditor from "jodit-react";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 
-export default function AddProject() {
+export default function UpdateForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     website_name: "",

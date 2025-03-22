@@ -6,7 +6,7 @@ import { connect } from "../../../../libs/dbConnect";
 import { NextResponse } from "next/server";
 import Project from "@/app/models/Project";
 
-/// ============================
+/// ============================ get request
 export async function GET(request) {
   console.log("Received GET request"); // Logs when a request is received
 
@@ -70,6 +70,49 @@ export async function POST(request) {
     return NextResponse.json(
       { message: "Project added successfully", project: newProject },
       { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
+
+/// delete request
+
+export async function DELETE(request) {
+  try {
+    console.log("Received DELETE request");
+
+    // Extract `id` correctly
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    console.log("ID:", id);
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing id parameter" },
+        { status: 400 }
+      );
+    }
+
+    // Connect to MongoDB
+    await connect();
+    console.log("MongoDB connected");
+
+    // Find and delete the document by ID
+    const deletedProject = await Project.findByIdAndDelete(id);
+
+    if (!deletedProject) {
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
+    }
+
+    // Return success response
+    return NextResponse.json(
+      { message: "Project deleted successfully", project: deletedProject },
+      { status: 200 }
     );
   } catch (error) {
     console.error("Error:", error);

@@ -20,7 +20,13 @@ const getProjectsData = async () => {
 export default async function Portfolio() {
   const { allProjects } = await getProjectsData(); // Fetch data
   return (
-    <div className="p-12 bg-white text-black dark:bg-black dark:text-white">
+    <div className=" lg:max-w-screen-lg max-w-screen-sm bg-white text-black dark:bg-black dark:text-white">
+      <h1
+        className="text-transparent  sm:text-4xl text-center  sm:mb-8 bg-clip-text text-3xl md:text-4xl  font-bold mb-6 pt-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 animate-gradient"
+        data-aos="fade-up"
+      >
+        Portfolio
+      </h1>
       <ProjectsCard projects={allProjects} />
     </div>
   );

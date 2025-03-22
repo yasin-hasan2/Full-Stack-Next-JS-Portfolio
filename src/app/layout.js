@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         >
           <div className="flex">
             <Sidebar />
-            <main className="flex-1 min-h-screen bg-gray-50 md:ml-64 transition-all duration-300 ease-in-out">
+            <main className="flex-1 min-h-screen bg-gray-50 md:ml-64 transition-all duration-300 ease-in-out   dark:bg-black ">
               <AOSInit />
               {children}
             </main>

@@ -28,18 +28,21 @@ export default function About() {
 
   return (
     <div className="p-8 md:p-12 bg-white text-black dark:bg-black dark:text-white">
-      <h1 className="text-3xl md:text-4xl font-bold mb-8" data-aos="fade-up">
+      <span
+        className="text-transparent bg-clip-text text-3xl md:text-4xl  font-bold mb-8 bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 animate-gradient"
+        data-aos="fade-up"
+      >
         About Me
-      </h1>
+      </span>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12">
         <div data-aos="fade-right">
           <h2 className="text-xl md:text-2xl font-semibold mb-4">Who am I?</h2>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-400 mb-4">
             I'm a passionate developer and designer with a keen eye for detail
             and a love for creating beautiful, functional digital experiences.
           </p>
-          <p className="text-gray-600">
+          <p className="text-gray-400">
             With over 5 years of experience in the industry, I've worked with
             various technologies and frameworks to deliver high-quality
             solutions.
@@ -50,12 +53,12 @@ export default function About() {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-white p-4 md:p-6 rounded-lg shadow-md"
+              className="border p-4 md:p-6 rounded-lg shadow-md bg-white text-black dark:bg-black dark:text-white"
             >
               <div className="text-2xl md:text-3xl font-bold text-orange-500">
                 {stat.value}
               </div>
-              <div className="text-sm md:text-base text-gray-600">
+              <div className="text-sm md:text-base text-gray-400">
                 {stat.label}
               </div>
             </div>
@@ -70,14 +73,14 @@ export default function About() {
         {services.map((service, index) => (
           <div
             key={index}
-            className="bg-white p-6 rounded-lg shadow-md"
+            className="bg-white p-6 rounded-lg shadow-md dark:border text-black dark:bg-black dark:text-white"
             data-aos="fade-up"
             data-aos-delay={index * 100}
           >
             <h3 className="text-lg md:text-xl font-semibold mb-3">
               {service.title}
             </h3>
-            <p className="text-gray-600">{service.description}</p>
+            <p className="text-gray-400">{service.description}</p>
           </div>
         ))}
       </div>

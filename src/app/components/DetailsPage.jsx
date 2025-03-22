@@ -216,7 +216,7 @@ export default function ProjectDetails({ singleProject }) {
                       alt={`${project.website_name} - Image ${index + 1}`}
                       className="w-full h-20 object-cover"
                       onError={(e) => {
-                        e.target.src = "/placeholder.svg?height=200&width=300";
+                        e.target.src = "/placeholder.svg?height=200&width=400";
                       }}
                     />
                   </div>
