@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import SocialMediaIcons from "./components/SocialMediaIcons";
+
 // import profile from "/public/img/IMG_0098.jpg";
 
 export default function Home() {
