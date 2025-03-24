@@ -7,7 +7,7 @@ import UpdateForm from "./updateForm";
 
 export default function ProjectTable({ projects }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
   const [projectToDelete, setProjectToDelete] = useState(null);
   const [projectsList, setProjectsList] = useState(projects);
 
@@ -15,17 +15,10 @@ export default function ProjectTable({ projects }) {
     setProjectToDelete(project);
     setIsModalOpen(true);
   };
-  const openUpdateModal = (project) => {
-    setIsUpdateModalOpen(true);
-  };
 
   const closeModal = () => {
     setProjectToDelete(null);
     setIsModalOpen(false);
-    setIsUpdateModalOpen(false);
-  };
-
-  const closeModalAndUpdate = () => {
     setIsUpdateModalOpen(false);
   };
 
@@ -104,12 +97,11 @@ export default function ProjectTable({ projects }) {
                   <Eye size={20} />
                 </a>
 
-                <button
-                  onClick={() => openUpdateModal(project._id)}
-                  className="text-yellow-600 hover:text-yellow-800 transition-transform transform hover:scale-110"
-                >
-                  <Pencil size={20} />
-                </button>
+                <Link href={`/dashboard/update/${project._id}`}>
+                  <button className="text-yellow-600 hover:text-yellow-800 transition-transform transform hover:scale-110">
+                    <Pencil size={20} />
+                  </button>
+                </Link>
 
                 <button
                   onClick={() => openModal(project)}
@@ -123,17 +115,6 @@ export default function ProjectTable({ projects }) {
         </tbody>
       </table>
       <ToastContainer />
-
-      {/* Update Modal  */}
-
-      {isUpdateModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm animate-fadeIn"></div>
-          <div className="bg-white p-6 rounded-lg shadow-xl z-10 w-11/12 max-w-md text-center animate-slideUp">
-            <UpdateForm />{" "}
-          </div>
-        </div>
-      )}
 
       {/* /// Modal  */}
       {isModalOpen && (

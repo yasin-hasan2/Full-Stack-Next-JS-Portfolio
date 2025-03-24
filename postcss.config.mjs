@@ -2,11 +2,12 @@
 const config = {
   plugins: {
     tailwindcss: {},
+    autoprefixer: {},
   },
 };
 
-module.exports = {
-  darkMode: "class", // Ensures Tailwind handles dark mode correctly
-};
+// module.exports = {
+//   darkMode: "class", // Ensures Tailwind handles dark mode correctly
+// };
 
 export default config;

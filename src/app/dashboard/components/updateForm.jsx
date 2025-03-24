@@ -5,16 +5,43 @@ import JoditEditor from "jodit-react";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 
-export default function UpdateForm() {
+export default function UpdateForm({
+  id,
+  website_name,
+  website_title,
+  category,
+  description,
+  project_full_details,
+  problem_solving,
+  website_thumbnail,
+  additional_images,
+  technology,
+  hosting,
+  website_source,
+}) {
+  console.log("Project data:", {
+    id,
+    website_name,
+    website_title,
+    category,
+    description,
+    project_full_details,
+    problem_solving,
+    website_thumbnail,
+    additional_images,
+    technology,
+    hosting,
+    website_source,
+  });
   const router = useRouter();
   const [formData, setFormData] = useState({
-    website_name: "",
-    website_title: "",
-    category: "",
-    description: "",
-    project_full_details: "",
-    problem_solving: "",
-    website_thumbnail: "",
+    website_name: website_name || "",
+    website_title: website_title || "",
+    category: category || "",
+    description: description || "",
+    project_full_details: project_full_details || "",
+    problem_solving: problem_solving || "",
+    website_thumbnail: website_thumbnail || "",
     additional_images: [],
     technology: [],
     hosting: {},
@@ -107,8 +134,8 @@ export default function UpdateForm() {
     setError("");
 
     try {
-      const res = await fetch("/api/projects", {
-        method: "POST",
+      const res = await fetch(`http://localhost:3000/api/projects/${id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
@@ -129,14 +156,14 @@ export default function UpdateForm() {
           hosting: {},
           website_source: {},
         });
+        toast.success("Project updated successfully");
         router.push("/portfolio");
       } else {
         throw new Error(result.error || "Something went wrong");
       }
-      toast.success("Project added successfully");
     } catch (err) {
       setError(err.message);
-      toast.error("Failed to add project");
+      toast.error("Failed to update project");
     } finally {
       setLoading(false);
     }
@@ -144,7 +171,7 @@ export default function UpdateForm() {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Add Project</h2>
+      <h2 className="text-2xl font-bold mb-4">Update Project</h2>
 
       {success && <p className="text-green-600">{success}</p>}
       {error && <p className="text-red-600">{error}</p>}
@@ -267,7 +294,6 @@ export default function UpdateForm() {
           value={formData.technology.join(", ")}
           onChange={handleChange}
           className="w-full p-2 border border-gray-300 rounded-md bg-white"
-          required
         />
 
         {/* Hosting (JSON Input) */}
