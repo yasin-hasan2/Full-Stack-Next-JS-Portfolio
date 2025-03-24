@@ -34,9 +34,12 @@ export default function ProjectTable({ projects }) {
 
     try {
       // Assuming the API expects the ID in the query string
-      const res = await fetch(`http://localhost:3000/api/projects?id=${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects?id=${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!res.ok) {
         const errorData = await res.json();

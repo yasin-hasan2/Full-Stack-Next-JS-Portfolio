@@ -134,11 +134,14 @@ export default function UpdateForm({
     setError("");
 
     try {
-      const res = await fetch(`http://localhost:3000/api/projects/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const result = await res.json();
       if (res.ok) {

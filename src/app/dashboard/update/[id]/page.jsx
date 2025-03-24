@@ -3,9 +3,12 @@ import UpdateForm from "../../components/updateForm";
 
 const getProjectId = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/projects/${id}`, {
-      cache: "no-cache",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects/${id}`,
+      {
+        cache: "no-cache",
+      }
+    );
 
     if (!res.ok) {
       throw new Error(`Failed to fetch project with ID: ${id}`);

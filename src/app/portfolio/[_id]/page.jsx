@@ -5,9 +5,12 @@ import React from "react";
 
 const getProjectsData = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/projects", {
-      cache: "no-cache",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`,
+      {
+        cache: "no-cache",
+      }
+    );
 
     if (!res.ok) {
       throw new Error("Network response was not ok");
@@ -24,9 +27,12 @@ const getProjectsData = async () => {
 
 const getProjectDataById = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/projects/${id}`, {
-      cache: "no-cache",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects/${id}`,
+      {
+        cache: "no-cache",
+      }
+    );
 
     if (!res.ok) {
       throw new Error("Network response was not ok");
