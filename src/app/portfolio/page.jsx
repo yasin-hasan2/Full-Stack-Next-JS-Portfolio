@@ -5,7 +5,7 @@ const getProjectsData = async () => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`,
       {
-        cache: "no-store", // ✅ Always fetches fresh data
+        next: { revalidate: 60 }, // ✅ Revalidates every 60 seconds
       }
     );
 
