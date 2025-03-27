@@ -5,7 +5,7 @@ const getProjectsData = async () => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`,
       {
-        cache: "no-cache",
+        cache: "no-store", // ✅ Always fetches fresh data
       }
     );
 
@@ -16,16 +16,17 @@ const getProjectsData = async () => {
     return res.json();
   } catch (error) {
     console.error("Error fetching data:", error);
-    return { cars: [] }; // ✅ Return an empty array to prevent crashes
+    return { allProjects: [] };
   }
 };
 
 export default async function Portfolio() {
   const { allProjects } = await getProjectsData(); // Fetch data
+
   return (
-    <div className=" lg:max-w-screen-lg max-w-screen-sm bg-white text-black dark:bg-black dark:text-white">
+    <div className="lg:max-w-screen-lg max-w-screen-sm bg-white text-black dark:bg-black dark:text-white">
       <h1
-        className="text-transparent  sm:text-4xl text-center  sm:mb-8 bg-clip-text text-3xl md:text-4xl  font-bold mb-6 pt-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 animate-gradient"
+        className="text-transparent sm:text-4xl text-center sm:mb-8 bg-clip-text text-3xl md:text-4xl font-bold mb-6 pt-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 animate-gradient"
         data-aos="fade-up"
       >
         Portfolio
