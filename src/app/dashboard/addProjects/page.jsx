@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import JoditEditor from "jodit-react";
+// import JoditEditor from "jodit-react";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
+import dynamic from "next/dynamic";
+// Dynamically import JoditEditor
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 export default function AddProject() {
   const router = useRouter();
