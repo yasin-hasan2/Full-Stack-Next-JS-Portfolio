@@ -1,33 +1,51 @@
-import React from "react";
+"use client"; // 👈 Convert to a Client Component
+
+import React, { useState, useEffect } from "react";
 import DashboardPage from "./components/dashboardPage";
 import ProjectTable from "./components/projectTable";
 
-const getProjectsData = async () => {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`,
-      {
-        cache: "no-cache",
+export default function mainPage() {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true); // ⏳ Loading state
+
+  console.log("project all data", projects);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true); // Start loading
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // ⏳ Delay 2 seconds
+
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`
+        );
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await res.json();
+        setProjects(data.allProjects);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setProjects([]); // Prevent crash
+      } finally {
+        setLoading(false); // ✅ Stop loading
       }
-    );
+    };
 
-    if (!res.ok) {
-      throw new Error("Network response was not ok");
-    }
+    fetchData();
+  }, []);
 
-    return res.json();
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return { cars: [] }; // ✅ Return an empty array to prevent crashes
-  }
-};
-
-export default async function mainPage() {
-  const { allProjects } = await getProjectsData(); // Fetch data
   return (
     <div className="space-y-4">
-      <ProjectTable projects={allProjects} />
-      <DashboardPage projects={allProjects} />
+      {loading ? (
+        <div className="text-center text-gray-500">Loading...</div> // ⏳ Show loading
+      ) : (
+        <>
+          <ProjectTable projects={projects} />
+          <DashboardPage projects={projects} />
+        </>
+      )}
     </div>
   );
 }
