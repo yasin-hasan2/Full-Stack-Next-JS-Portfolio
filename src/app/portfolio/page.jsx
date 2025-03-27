@@ -2,12 +2,11 @@ import ProjectsCard from "./portfolio-Components/ProjectsCard";
 
 const getProjectsData = async () => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`,
-      {
-        next: { revalidate: 60 }, // ✅ Revalidates every 60 seconds
-      }
-    );
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"; // Fallback for production
+
+    const res = await fetch(`${baseUrl}/api/projects`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) {
       throw new Error("Network response was not ok");
@@ -16,7 +15,7 @@ const getProjectsData = async () => {
     return res.json();
   } catch (error) {
     console.error("Error fetching data:", error);
-    return { allProjects: [] };
+    return { allProjects: [] }; // Prevent crashes
   }
 };
 
