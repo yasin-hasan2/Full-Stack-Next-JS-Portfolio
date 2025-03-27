@@ -1,8 +1,15 @@
 "use client"; // 👈 Convert to a Client Component
 
 import React, { useState, useEffect } from "react";
-import DashboardPage from "./components/dashboardPage";
-import ProjectTable from "./components/projectTable";
+import dynamic from "next/dynamic";
+
+const DashboardPage = dynamic(() => import("./components/dashboardPage"), {
+  ssr: false, // ⛔ Prevents server-side rendering
+});
+
+const ProjectTable = dynamic(() => import("./components/projectTable"), {
+  ssr: false,
+});
 
 export default function mainPage() {
   const [projects, setProjects] = useState([]);
