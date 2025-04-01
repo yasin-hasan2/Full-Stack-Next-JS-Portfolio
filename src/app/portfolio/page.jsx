@@ -5,14 +5,14 @@ import ProjectsCard from "./portfolio-Components/ProjectsCard";
 export default function Portfolio() {
   const [allProjects, setAllProjects] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProjectsData = async () => {
+      setLoading(true); // ⏳ Start loading
+
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`,
-          { cache: "no-store" } // ✅ No caching for fresh data
-        );
+        const res = await fetch("/api/proxy", { cache: "no-store" }); // ✅ Using the Proxy API
 
         if (!res.ok) {
           throw new Error("Network response was not ok");
@@ -22,7 +22,9 @@ export default function Portfolio() {
         setAllProjects(data.allProjects);
       } catch (err) {
         console.error("Error fetching data:", err);
-        setError(err.message);
+        setError("Failed to load projects");
+      } finally {
+        setLoading(false); // ✅ Stop loading
       }
     };
 
@@ -38,7 +40,9 @@ export default function Portfolio() {
         Portfolio
       </h1>
 
-      {error ? (
+      {loading ? (
+        <p className="text-gray-500 text-center">Loading projects...</p>
+      ) : error ? (
         <p className="text-red-500 text-center">{error}</p>
       ) : (
         <ProjectsCard projects={allProjects} />

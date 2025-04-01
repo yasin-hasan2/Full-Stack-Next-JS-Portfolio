@@ -24,6 +24,8 @@ export default function AddProject() {
     website_source: {},
   });
 
+  console.log("formData", formData);
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");

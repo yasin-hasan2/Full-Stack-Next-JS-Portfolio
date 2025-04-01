@@ -37,15 +37,17 @@ export async function GET(request) {
   }
 }
 
-// Post request
+/// ============================ post request
 
 export async function POST(request) {
   try {
-    // Connect to MongoDB
+    console.log("🔵 Connecting to database...");
     await connect();
+    console.log("✅ Database connected!");
 
-    // Parse request body
+    console.log("🔵 Parsing request body...");
     const body = await request.json();
+    console.log("✅ Received Data:", body);
 
     // Validate required fields
     if (
@@ -56,23 +58,24 @@ export async function POST(request) {
       !body.website_thumbnail ||
       !body.technology
     ) {
+      console.error("❌ Missing required fields:", body);
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
 
-    // Create a new project document
+    console.log("🔵 Creating new project...");
     const newProject = new Project(body);
     await newProject.save();
+    console.log("✅ Project saved successfully:", newProject);
 
-    // Return success response
     return NextResponse.json(
       { message: "Project added successfully", project: newProject },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error:", error);
+    console.error("❌ Internal Server Error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

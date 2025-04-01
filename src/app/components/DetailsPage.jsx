@@ -312,33 +312,56 @@ export default function ProjectDetails({ singleProject }) {
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
               <h2 className="text-xl font-bold mb-4">Project Links</h2>
               <div className="space-y-4">
-                <a
-                  href={project.website_source.live_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center text-orange-600 hover:text-orange-800 transition-colors"
-                >
-                  <ExternalLink className="mr-2 h-5 w-5" />
-                  <span>Live Demo</span>
-                </a>
-                <a
-                  href={project.website_source.client_github_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center text-orange-600 hover:text-orange-800 transition-colors"
-                >
-                  <Github className="mr-2 h-5 w-5" />
-                  <span>Client Source Code</span>
-                </a>
-                <a
-                  href={project.website_source.server_github_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center text-orange-600 hover:text-orange-800 transition-colors"
-                >
-                  <Server className="mr-2 h-5 w-5" />
-                  <span>Server Source Code</span>
-                </a>
+                {/* Live Demo Link */}
+                {project.website_source?.live_link ? (
+                  <a
+                    href={project.website_source.live_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-orange-600 hover:text-orange-800 transition-colors"
+                  >
+                    <ExternalLink className="mr-2 h-5 w-5" />
+                    <span>Live Demo</span>
+                  </a>
+                ) : (
+                  <p className="text-gray-500">
+                    Live Demo link doesn't exist for this project.
+                  </p>
+                )}
+
+                {/* Client GitHub Link */}
+                {project.website_source?.client_github_link ? (
+                  <a
+                    href={project.website_source.client_github_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-orange-600 hover:text-orange-800 transition-colors"
+                  >
+                    <Github className="mr-2 h-5 w-5" />
+                    <span>Client Source Code</span>
+                  </a>
+                ) : (
+                  <p className="text-gray-500">
+                    Client GitHub link doesn't exist for this project.
+                  </p>
+                )}
+
+                {/* Server GitHub Link */}
+                {project.website_source?.server_github_link ? (
+                  <a
+                    href={project.website_source.server_github_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-orange-600 hover:text-orange-800 transition-colors"
+                  >
+                    <Server className="mr-2 h-5 w-5" />
+                    <span>Server Source Code</span>
+                  </a>
+                ) : (
+                  <p className="text-gray-500">
+                    Server GitHub link doesn't exist for this project.
+                  </p>
+                )}
               </div>
             </div>
 
@@ -346,27 +369,51 @@ export default function ProjectDetails({ singleProject }) {
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
               <h2 className="text-xl font-bold mb-4">Hosting Information</h2>
               <div className="space-y-4">
-                <div className="flex items-start">
-                  <Globe className="mr-3 h-5 w-5 text-orange-500 mt-0.5" />
-                  <div>
-                    <h3 className="font-medium">Frontend</h3>
-                    <p className="text-gray-600">{project.hosting.frontend}</p>
+                {project?.hosting?.frontend ? (
+                  <div className="flex items-start">
+                    <Globe className="mr-3 h-5 w-5 text-orange-500 mt-0.5" />
+                    <div>
+                      <h3 className="font-medium">Frontend</h3>
+                      <p className="text-gray-600">
+                        {project.hosting.frontend}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start">
-                  <Server className="mr-3 h-5 w-5 text-orange-500 mt-0.5" />
-                  <div>
-                    <h3 className="font-medium">Backend</h3>
-                    <p className="text-gray-600">{project.hosting.backend}</p>
+                ) : (
+                  <p className="text-gray-500">
+                    Frontend hosting information not available.
+                  </p>
+                )}
+
+                {project?.hosting?.backend ? (
+                  <div className="flex items-start">
+                    <Server className="mr-3 h-5 w-5 text-orange-500 mt-0.5" />
+                    <div>
+                      <h3 className="font-medium">Backend</h3>
+                      <p className="text-gray-600">{project.hosting.backend}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start">
-                  <Database className="mr-3 h-5 w-5 text-orange-500 mt-0.5" />
-                  <div>
-                    <h3 className="font-medium">Database</h3>
-                    <p className="text-gray-600">{project.hosting.database}</p>
+                ) : (
+                  <p className="text-gray-500">
+                    Backend hosting information not available.
+                  </p>
+                )}
+
+                {project?.hosting?.database ? (
+                  <div className="flex items-start">
+                    <Database className="mr-3 h-5 w-5 text-orange-500 mt-0.5" />
+                    <div>
+                      <h3 className="font-medium">Database</h3>
+                      <p className="text-gray-600">
+                        {project.hosting.database}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <p className="text-gray-500">
+                    Database hosting information not available.
+                  </p>
+                )}
               </div>
             </div>
 
