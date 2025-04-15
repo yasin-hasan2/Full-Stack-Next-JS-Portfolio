@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 // Are you inside src/app/page.js?
-import SocialMediaIcons from "../components/SocialMediaIcons"; // Maybe this is what you need
+import SocialMediaIcons from "@/app/components/SocialMediaIcons";
+// Maybe this is what you need
 
 // import SocialMediaIcons from "../app/components/SocialMediaIcons";
 
