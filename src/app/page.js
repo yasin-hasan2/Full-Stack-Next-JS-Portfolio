@@ -1,6 +1,7 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import socialMediaIcons from "./components/socialMediaIcons";
+import SocialMediaIcons from "./components/socialMediaIcons";
 
 // import profile from "/public/img/IMG_0098.jpg";
 
@@ -61,7 +62,7 @@ export default function Home() {
           </button>
         </Link>
         <div>
-          <socialMediaIcons />
+          <SocialMediaIcons />
         </div>
       </div>
       <div className="w-full md:w-1/2 bg-gray-100 min-h-[50vh] md:min-h-screen">
