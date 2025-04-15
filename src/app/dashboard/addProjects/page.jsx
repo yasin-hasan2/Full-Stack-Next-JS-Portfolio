@@ -35,6 +35,7 @@ export default function AddProject() {
     "UI/UX",
     "Mobile App",
     "E-commerce",
+    "SaaS",
     "SEO",
     "Digital Marketing",
     "Branding",

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import SocialMediaIcons from "./components/socialMediaIcons";
 // import SocialMediaIcons from "../app/components/SocialMediaIcons";
 
 // import profile from "/public/img/IMG_0098.jpg";
@@ -60,7 +61,9 @@ export default function Home() {
             <div class="absolute -left-full top-0 h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-[200%] transition-transform duration-700 ease-out"></div>
           </button>
         </Link>
-        <div>{/* <SocialMediaIcons /> */}</div>
+        <div>
+          <SocialMediaIcons />
+        </div>
       </div>
       <div className="w-full md:w-1/2 bg-gray-100 min-h-[50vh] md:min-h-screen">
         {/* <Image
