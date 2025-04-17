@@ -4,12 +4,9 @@ import Link from "next/link";
 // import SocialMediaIcons from "./components/socialMediaIcons";
 import dynamic from "next/dynamic";
 
-const SocialMediaIcons = dynamic(
-  () => import("./components/socialMediaIcons"),
-  {
-    ssr: false,
-  }
-);
+const MediaIcons = dynamic(() => import("./components/MediaIcons.jsx"), {
+  ssr: false,
+});
 // import profile from "/public/img/IMG_0098.jpg";
 
 export default function Home() {
@@ -69,7 +66,7 @@ export default function Home() {
           </button>
         </Link>
         <div>
-          <SocialMediaIcons />
+          <MediaIcons />
         </div>
       </div>
       <div className="w-full md:w-1/2 bg-gray-100 min-h-[50vh] md:min-h-screen">

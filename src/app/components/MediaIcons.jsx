@@ -2,7 +2,7 @@
 "use client";
 // import "../style/SocialMediaIcons.css";
 
-export default function SocialMediaIcons() {
+export default function MediaIcons() {
   return (
     <div class="flex  gap-5 items-center  mt-5 p-2 ">
       {/* <ul class="wrapper">
