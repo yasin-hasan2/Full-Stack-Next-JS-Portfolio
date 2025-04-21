@@ -53,3 +53,65 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #ff8c00;
 }
+
+/* Modal backdrop blur */
+.modal-backdrop {
+  backdrop-filter: blur(5px);
+}
+
+/* Prose styling for rich text */
+.prose p {
+  margin-bottom: 1rem;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+/* Glowing effects */
+.glow-orange {
+  box-shadow: 0 0 15px rgba(249, 115, 22, 0.7);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(249, 115, 22, 0.7);
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 5px rgba(249, 115, 22, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(249, 115, 22, 0.7);
+  }
+}
+
+.animate-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* Dark mode scrollbar */
+.dark-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-track {
+  background: #1f2937;
+  border-radius: 10px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb {
+  background: #f97316;
+  border-radius: 10px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ea580c;
+}

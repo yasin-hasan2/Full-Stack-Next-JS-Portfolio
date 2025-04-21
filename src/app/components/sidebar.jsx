@@ -19,7 +19,7 @@ import DarkAndLightButton from "./DarkAndLightButton";
 const navigation = [
   { name: "Home", href: "/", icon: Home },
   { name: "About", href: "/about", icon: User },
-  // { name: "Resume", href: "/resume", icon: FileText },
+  { name: "Resume", href: "/resume", icon: FileText },
   { name: "Portfolio", href: "/portfolio", icon: Briefcase },
   // { name: "Testimonials", href: "/testimonials", icon: Star },
   { name: "Contact", href: "/contact", icon: MessageSquare },

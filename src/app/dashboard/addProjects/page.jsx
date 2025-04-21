@@ -32,6 +32,7 @@ export default function AddProject() {
 
   const categories = [
     "Web-Development",
+    "Web-App",
     "UI/UX",
     "Mobile App",
     "E-commerce",

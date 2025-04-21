@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
+import Link from "next/link";
 
 // Tools data organized by category
 const toolsData = {
@@ -136,11 +137,12 @@ const servicesData = [
 // Custom hook for counting animation
 function useCountUp(end, duration = 2000) {
   const [count, setCount] = useState(0);
-  const countRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
   const [animationTimer, setAnimationTimer] = useState(null);
+  const elementRef = useRef(null);
 
   useEffect(() => {
+    let timer;
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && !hasAnimated) {
@@ -148,7 +150,7 @@ function useCountUp(end, duration = 2000) {
           let start = 0;
           const step = end / (duration / 16); // 16ms is roughly one frame at 60fps
 
-          const timer = setInterval(() => {
+          timer = setInterval(() => {
             start += step;
             if (start >= end) {
               setCount(end);
@@ -160,28 +162,51 @@ function useCountUp(end, duration = 2000) {
           }, 16);
 
           setAnimationTimer(timer);
-
-          return () => clearInterval(timer);
         }
       },
       { threshold: 0.1 }
     );
 
-    if (countRef.current) {
-      observer.observe(countRef.current);
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
     }
 
     return () => {
-      if (countRef.current) {
-        observer.unobserve(countRef.current);
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
       }
+      clearInterval(timer);
       if (animationTimer) {
         clearInterval(animationTimer);
       }
     };
   }, [end, duration, hasAnimated, animationTimer]);
 
-  return [count, countRef];
+  return [count, elementRef];
+}
+
+// StatCard component to isolate the hook call
+function StatCard({ stat, index }) {
+  const [count, elementRef] = useCountUp(stat.value);
+
+  return (
+    <motion.div
+      key={index}
+      ref={elementRef}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700"
+    >
+      <div className="text-2xl md:text-3xl font-bold text-orange-500">
+        {count}
+        {stat.symbol}
+      </div>
+      <div className="text-sm md:text-base text-gray-600 dark:text-gray-400">
+        {stat.label}
+      </div>
+    </motion.div>
+  );
 }
 
 // Modal component
@@ -189,23 +214,26 @@ function Modal({ isOpen, onClose, title, children }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className="bg-white rounded-lg shadow-xl max-w-lg w-full max-h-[80vh] overflow-y-auto"
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-lg w-full max-h-[80vh] overflow-y-auto"
       >
-        <div className="flex justify-between items-center p-4 border-b">
-          <h3 className="text-xl font-semibold">{title}</h3>
+        <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+            {title}
+          </h3>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 transition-colors"
+            className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+            aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
-        <div className="p-6">{children}</div>
+        <div className="p-6 text-gray-700 dark:text-gray-300">{children}</div>
       </motion.div>
     </div>
   );
@@ -214,6 +242,11 @@ function Modal({ isOpen, onClose, title, children }) {
 export default function About() {
   const [modalContent, setModalContent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const openModal = (service) => {
     setModalContent(service);
@@ -224,10 +257,12 @@ export default function About() {
     setIsModalOpen(false);
   };
 
+  if (!mounted) return null;
+
   return (
-    <div className="p-8 md:p-12">
+    <div className="p-8 md:p-12 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen transition-colors duration-300">
       <h1
-        className="text-transparent sm:text-4xl  sm:mb-8 bg-clip-text text-3xl md:text-4xl font-bold mb-6 pt-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 animate-gradient"
+        className="text-3xl md:text-4xl font-bold mb-8 text-gray-900 dark:text-white"
         data-aos="fade-up"
       >
         About Me
@@ -239,27 +274,24 @@ export default function About() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-xl md:text-2xl font-semibold mb-4 dark:text-white ">
+          <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
             Who am I?
           </h2>
-          <div className="">
-            <p className="text-gray-600 mb-4 dark:text-[#c9c5c5ca] font-normal">
-              I'm a passionate developer and designer with a keen eye for detail
-              and a love for creating beautiful, functional digital experiences.
-            </p>
-            <p className="text-gray-600 mb-4 dark:text-[#c9c5c5ca] font-normal">
-              With over 5 years of experience in the industry, I've worked with
-              various technologies and frameworks to deliver high-quality
-              solutions that meet client needs and exceed expectations.
-            </p>
-            <p className="text-gray-600 dark:text-[#c9c5c5ca] font-normal">
-              My approach combines technical expertise with creative
-              problem-solving, allowing me to tackle complex challenges and
-              transform ideas into reality. I believe in continuous learning and
-              staying updated with the latest industry trends and best
-              practices.
-            </p>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            I'm a passionate developer and designer with a keen eye for detail
+            and a love for creating beautiful, functional digital experiences.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            With over 5 years of experience in the industry, I've worked with
+            various technologies and frameworks to deliver high-quality
+            solutions that meet client needs and exceed expectations.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300">
+            My approach combines technical expertise with creative
+            problem-solving, allowing me to tackle complex challenges and
+            transform ideas into reality. I believe in continuous learning and
+            staying updated with the latest industry trends and best practices.
+          </p>
           <button
             className="mt-6 px-4 py-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 animate-gradient text-white rounded-lg hover:opacity-90 transition-opacity"
             onClick={() =>
@@ -279,32 +311,10 @@ export default function About() {
           </button>
         </motion.div>
 
-        <div
-          className="grid grid-cols-2 gap-4 md:gap-6"
-          ref={statsData[0].countRef}
-        >
-          {statsData.map((stat, index) => {
-            const [count, countRef] = useCountUp(stat.value);
-
-            return (
-              <motion.div
-                key={index}
-                ref={countRef}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white dark:bg-black dark:border dark:border-white p-4 md:p-6 rounded-lg shadow-md dark:shadow-[#c9c5c5ca]"
-              >
-                <div className="text-2xl md:text-3xl font-bold text-orange-500">
-                  {count}
-                  {stat.symbol}
-                </div>
-                <div className="text-sm md:text-base text-gray-600 dark:text-[#c9c5c5ca] font-normal ">
-                  {stat.label}
-                </div>
-              </motion.div>
-            );
-          })}
+        <div className="grid grid-cols-2 gap-4 md:gap-6">
+          {statsData.map((stat, index) => (
+            <StatCard key={index} stat={stat} index={index} />
+          ))}
         </div>
       </div>
 
@@ -314,23 +324,27 @@ export default function About() {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="mb-16"
       >
-        <h2 className="text-xl md:text-2xl font-semibold mb-6">What I Do?</h2>
+        <h2 className="text-xl md:text-2xl font-semibold mb-6 text-gray-900 dark:text-white">
+          What I Do?
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {servicesData.map((service, index) => (
             <motion.div
               key={index}
-              className="bg-white p-6 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
               data-aos="fade-up"
               data-aos-delay={index * 100}
               onClick={() => openModal(service)}
               whileHover={{ y: -5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <h3 className="text-lg md:text-xl font-semibold mb-3">
+              <h3 className="text-lg md:text-xl font-semibold mb-3 text-gray-900 dark:text-white">
                 {service.title}
               </h3>
-              <p className="text-gray-600">{service.description}</p>
-              <button className="mt-4 text-orange-500 hover:text-orange-700 transition-colors text-sm">
+              <p className="text-gray-700 dark:text-gray-300">
+                {service.description}
+              </p>
+              <button className="mt-4 text-orange-500 hover:text-orange-700 dark:hover:text-orange-400 transition-colors text-sm">
                 Learn more →
               </button>
             </motion.div>
@@ -343,20 +357,20 @@ export default function About() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
-        <h2 className="text-xl md:text-2xl font-semibold mb-6 dark:text-white">
+        <h2 className="text-xl md:text-2xl font-semibold mb-6 text-gray-900 dark:text-white">
           My Toolbox
         </h2>
 
         {Object.entries(toolsData).map(([category, tools]) => (
           <div key={category} className="mb-10">
-            <h3 className="text-lg font-semibold mb-4 capitalize dark:text-white">
+            <h3 className="text-lg font-semibold mb-4 capitalize text-gray-800 dark:text-gray-200">
               {category}
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {tools.map((tool, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white dark:bg-black dark:border dark:border-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center text-center"
+                  className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center text-center"
                   whileHover={{ y: -5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -368,7 +382,7 @@ export default function About() {
                       e.target.src = "/placeholder.svg?height=50&width=50";
                     }}
                   />
-                  <span className="text-sm font-medium dark:text-[#c9c5c5ca]">
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     {tool.name}
                   </span>
                 </motion.div>
@@ -378,13 +392,44 @@ export default function About() {
         ))}
       </motion.div>
 
+      {/* Back to Home Button */}
+      <motion.div
+        className="mt-12 flex justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.5 }}
+      >
+        <Link href="/">
+          <button className="group relative px-6 py-3 rounded-lg bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-400 animate-gradient text-white font-medium hover:from-yellow-500 hover:via-amber-600 hover:to-yellow-700 transition-opacity transform hover:scale-105 duration-300 ease-out shadow-lg hover:shadow-xl">
+            <span className="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition-transform duration-300 group-hover:-translate-x-1"
+              >
+                <path d="m12 19-7-7 7-7" />
+                <path d="M19 12H5" />
+              </svg>
+              Back to Home
+            </span>
+          </button>
+        </Link>
+      </motion.div>
+
       {/* Modal */}
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
         title={modalContent?.title || ""}
       >
-        <div className="prose max-w-none">
+        <div className="prose dark:prose-invert max-w-none">
           {modalContent?.details?.split("\n\n").map((paragraph, index) => (
             <p key={index} className="mb-4">
               {paragraph}
