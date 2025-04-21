@@ -31,19 +31,19 @@ export default function AddProject() {
   const [error, setError] = useState("");
 
   const categories = [
-    "Web Development",
+    "Web-Development",
     "UI/UX",
     "Mobile App",
     "E-commerce",
     "SaaS",
     "SEO",
-    "Digital Marketing",
+    "Digital-Marketing",
     "Branding",
-    "Graphic Design",
-    "Content Writing",
-    "Video Editing",
+    "Graphic-Design",
+    "Content-Writing",
+    "Video-Editing",
     "Photography",
-    "Real Estate",
+    "Real-Estate",
     "Other",
   ];
 

@@ -33,38 +33,70 @@ export default function Home() {
           </button> */}
 
           <button class="group relative px-10 py-5 rounded-lg bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-400 animate-gradient text-black font-bold tracking-wider uppercase text-sm hover:from-yellow-500 hover:via-amber-600 hover:to-yellow-700 transition-opacity transform hover:rotate-1  duration-300 ease-out shadow-[0_0_20px_rgba(251,191,36,0.5)] hover:shadow-[0_0_30px_rgba(251,191,36,0.7)] active:scale-90 overflow-hidden before:absolute before:inset-0 before:rounded-lg before:border-2 before:border-amber-400/50 before:transition-all before:duration-300 hover:before:border-amber-300 hover:before:scale-105">
-            <span class="flex items-center gap-2 relative z-10">
-              <svg
-                stroke="currentColor"
-                fill="none"
-                viewBox="0 0 24 24"
-                class="w-5 h-5 animate-spin duration-1000 "
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
-                ></path>
-              </svg>
-              More About Me
-              <svg
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                fill="none"
-                class="w-4 h-4 transition-transform duration-500 group-hover:translate-x-2"
-              >
-                <path
-                  d="M5 12h14m-7-7l7 7-7 7"
-                  stroke-width="2.5"
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                ></path>
-              </svg>
-            </span>
-            <div class="absolute inset-0 rounded-lg opacity-50 group-hover:opacity-80 transition-opacity duration-300 bg-gradient-to-tl from-amber-200/40 via-transparent to-transparent"></div>
-            <div class="absolute -left-full top-0 h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-[200%] transition-transform duration-700 ease-out"></div>
+            <a
+              href="https://github.com/yasin-hasan2"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="flex items-center gap-2 relative z-10">
+                <svg
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  class="w-5 h-5 hover:animate-spin duration-1000 "
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-width="2"
+                    d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"
+                  ></path>
+                </svg>
+                More About Me
+                <svg
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  fill="none"
+                  class="w-4 h-4 transition-transform duration-500 group-hover:translate-x-2"
+                >
+                  <path
+                    d="M5 12h14m-7-7l7 7-7 7"
+                    stroke-width="2.5"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                  ></path>
+                </svg>
+              </span>
+              <div class="absolute inset-0 rounded-lg opacity-50 group-hover:opacity-80 transition-opacity duration-300 bg-gradient-to-tl from-amber-200/40 via-transparent to-transparent"></div>
+              <div class="absolute -left-full top-0 h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-[200%] transition-transform duration-700 ease-out"></div>
+            </a>
           </button>
         </Link>
+        <div className="mt-8  w-40">
+          <a
+            href="https://drive.google.com/uc?export=download&id=116XhbSdZX0ZX7o3pcYxKa81_HWAQyeNC"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button className="cursor-pointer flex justify-between bg-gray-800 px-3 py-2 rounded-full text-white tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-500 hover:ring-1 font-mono w-[150px]">
+              Resume
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                className="w-5 h-5 animate-bounce"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"
+                />
+              </svg>
+            </button>
+          </a>
+        </div>
+
         <div>
           <MediaIcons />
         </div>

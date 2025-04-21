@@ -6,13 +6,13 @@ import { Menu, Transition } from "@headlessui/react";
 
 const categories = [
   "All",
-  "Web Development",
+  "Web-Development",
   "E-commerce",
   "UI/UX",
   "SEO",
-  "Digital Marketing",
-  "Graphic Design",
-  "Mobile Apps",
+  "Digital-Marketing",
+  "Graphic-Design",
+  "Mobile-Apps",
   "Branding",
   "Other",
 ];

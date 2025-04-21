@@ -19,9 +19,9 @@ import DarkAndLightButton from "./DarkAndLightButton";
 const navigation = [
   { name: "Home", href: "/", icon: Home },
   { name: "About", href: "/about", icon: User },
-  { name: "Resume", href: "/resume", icon: FileText },
+  // { name: "Resume", href: "/resume", icon: FileText },
   { name: "Portfolio", href: "/portfolio", icon: Briefcase },
-  { name: "Testimonials", href: "/testimonials", icon: Star },
+  // { name: "Testimonials", href: "/testimonials", icon: Star },
   { name: "Contact", href: "/contact", icon: MessageSquare },
 ];
 
@@ -129,7 +129,7 @@ export default function Sidebar() {
               {showDashboard && (
                 <li>
                   <Link
-                    href="/dashboard"
+                    href="/"
                     className={classNames(
                       "flex items-center space-x-3 px-4 py-2 rounded-lg text-white/90 hover:bg-white/10 transition-colors",
                       pathname.startsWith("/dashboard") && "bg-white/20"

@@ -45,8 +45,8 @@ export default function MediaIcons() {
       {/* another social media icons */}
       {/* Git HUb  */}
       <section class="flex justify-center items-center">
-        <button
-          href="/"
+        <a
+          href="https://github.com/yasin-hasan2"
           class="group flex justify-center p-2 rounded-md drop-shadow-xl bg-gradient-to-r from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]"
         >
           <svg
@@ -69,12 +69,12 @@ export default function MediaIcons() {
           <span class="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">
             GitHub
           </span>
-        </button>
+        </a>
       </section>
       {/* LinkedIn */}
       <section class="flex justify-center items-center">
-        <button
-          href="/"
+        <a
+          href="https://www.linkedin.com/in/yasin-al-hasan-05a16425a/"
           class="group flex justify-center p-2 rounded-md drop-shadow-xl bg-[#0077b5] from-gray-800 text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]"
         >
           <svg
@@ -92,7 +92,7 @@ export default function MediaIcons() {
           <span class="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">
             Linkedin
           </span>
-        </button>
+        </a>
       </section>
       {/* Facebook  */}
 
@@ -122,7 +122,7 @@ export default function MediaIcons() {
       {/* Twitter */}
 
       <section class="flex justify-center items-center">
-        <button
+        <a
           href="/"
           class="group flex justify-center p-2 rounded-md drop-shadow-xl bg-gradient-to-r from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]"
         >
@@ -140,7 +140,7 @@ export default function MediaIcons() {
           <span class="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">
             x
           </span>
-        </button>
+        </a>
       </section>
 
       {/* Youtube  */}
