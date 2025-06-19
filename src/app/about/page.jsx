@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Code, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 // Tools data organized by category
@@ -103,6 +103,94 @@ const toolsData = {
     },
   ],
 };
+
+// Gallery images data
+const galleryImages = [
+  {
+    id: 1,
+    src: "/placeholder.svg?height=400&width=300",
+    alt: "Mountain Landscape",
+    caption: "Breathtaking mountain views captured during my hiking adventure",
+    height: "h-64",
+  },
+  {
+    id: 2,
+    src: "/placeholder.svg?height=300&width=300",
+    alt: "City Architecture",
+    caption: "Modern architecture meets classic design in downtown",
+    height: "h-48",
+  },
+  {
+    id: 3,
+    src: "/placeholder.svg?height=500&width=300",
+    alt: "Nature Photography",
+    caption: "Wildlife photography from my recent safari trip",
+    height: "h-80",
+  },
+  {
+    id: 4,
+    src: "/placeholder.svg?height=350&width=300",
+    alt: "Abstract Art",
+    caption: "Digital art creation using modern design tools",
+    height: "h-56",
+  },
+  {
+    id: 5,
+    src: "/placeholder.svg?height=450&width=300",
+    alt: "Street Photography",
+    caption: "Candid moments captured in the bustling city streets",
+    height: "h-72",
+  },
+  {
+    id: 6,
+    src: "/placeholder.svg?height=320&width=300",
+    alt: "Portrait Session",
+    caption: "Professional portrait photography for a client",
+    height: "h-52",
+  },
+  {
+    id: 7,
+    src: "/placeholder.svg?height=380&width=300",
+    alt: "Web Design",
+    caption: "UI/UX design mockup for a recent web project",
+    height: "h-60",
+  },
+  {
+    id: 8,
+    src: "/placeholder.svg?height=420&width=300",
+    alt: "Mobile App",
+    caption: "Mobile app interface design and prototyping",
+    height: "h-68",
+  },
+  {
+    id: 9,
+    src: "/placeholder.svg?height=360&width=300",
+    alt: "Brand Identity",
+    caption: "Complete brand identity design for a startup",
+    height: "h-58",
+  },
+  {
+    id: 10,
+    src: "/placeholder.svg?height=480&width=300",
+    alt: "Event Photography",
+    caption: "Corporate event photography and documentation",
+    height: "h-76",
+  },
+  {
+    id: 11,
+    src: "/placeholder.svg?height=340&width=300",
+    alt: "Product Design",
+    caption: "3D product visualization and rendering",
+    height: "h-54",
+  },
+  {
+    id: 12,
+    src: "/placeholder.svg?height=400&width=300",
+    alt: "Travel Photography",
+    caption: "Travel memories from around the world",
+    height: "h-64",
+  },
+];
 
 // Stats data
 const statsData = [
@@ -209,7 +297,7 @@ function StatCard({ stat, index }) {
   );
 }
 
-// Modal component
+// Modal component for services
 function Modal({ isOpen, onClose, title, children }) {
   if (!isOpen) return null;
 
@@ -239,9 +327,129 @@ function Modal({ isOpen, onClose, title, children }) {
   );
 }
 
+// Toolbox Modal component
+function ToolboxModal({ isOpen, onClose }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto"
+      >
+        <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-500 flex items-center justify-center">
+              <Code className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+              My Toolbox
+            </h3>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+            aria-label="Close modal"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        <div className="p-6 space-y-8">
+          {Object.entries(toolsData).map(([category, tools]) => (
+            <motion.div
+              key={category}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h4 className="text-xl font-semibold mb-4 capitalize text-gray-800 dark:text-gray-200 flex items-center gap-2">
+                <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full" />
+                {category}
+              </h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {tools.map((tool, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 flex flex-col items-center justify-center text-center group hover:shadow-lg transition-all duration-300"
+                    whileHover={{ y: -5, scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <img
+                      src={tool.icon || "/placeholder.svg"}
+                      alt={tool.name}
+                      className="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300"
+                      onError={(e) => {
+                        e.target.src = "/placeholder.svg?height=50&width=50";
+                      }}
+                    />
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-orange-500 transition-colors duration-300">
+                      {tool.name}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+// Gallery Image component with hover tooltip
+function GalleryImage({ image, index }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className={`relative ${image.height} group cursor-pointer`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="relative w-full h-full overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+        <img
+          src={image.src || "/placeholder.svg"}
+          alt={image.alt}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          onError={(e) => {
+            e.target.src = "/placeholder.svg?height=400&width=300";
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Chat Bubble Tooltip */}
+        {isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.9 }}
+            className="absolute bottom-4 left-4 right-4 bg-white dark:bg-gray-800 rounded-lg p-3 shadow-xl border border-gray-200 dark:border-gray-600"
+          >
+            <div className="flex items-start gap-2">
+              <MessageCircle className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                {image.caption}
+              </p>
+            </div>
+            {/* Chat bubble arrow */}
+            <div className="absolute -bottom-2 left-6 w-4 h-4 bg-white dark:bg-gray-800 border-r border-b border-gray-200 dark:border-gray-600 transform rotate-45" />
+          </motion.div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function About() {
   const [modalContent, setModalContent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isToolboxModalOpen, setIsToolboxModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -255,6 +463,14 @@ export default function About() {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const openToolboxModal = () => {
+    setIsToolboxModalOpen(true);
+  };
+
+  const closeToolboxModal = () => {
+    setIsToolboxModalOpen(false);
   };
 
   if (!mounted) return null;
@@ -332,11 +548,12 @@ export default function About() {
             <motion.div
               key={index}
               className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               onClick={() => openModal(service)}
               whileHover={{ y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              // transition={{ type: "spring", stiffness: 300 }}
             >
               <h3 className="text-lg md:text-xl font-semibold mb-3 text-gray-900 dark:text-white">
                 {service.title}
@@ -352,44 +569,81 @@ export default function About() {
         </div>
       </motion.div>
 
+      {/* My Toolbox Section - Now triggers modal */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
+        className="mb-16"
       >
-        <h2 className="text-xl md:text-2xl font-semibold mb-6 text-gray-900 dark:text-white">
-          My Toolbox
-        </h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
+            My Toolbox
+          </h2>
+          <motion.button
+            onClick={openToolboxModal}
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl hover:from-orange-600 hover:to-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Code className="w-5 h-5" />
+            View All Tools
+          </motion.button>
+        </div>
 
-        {Object.entries(toolsData).map(([category, tools]) => (
-          <div key={category} className="mb-10">
-            <h3 className="text-lg font-semibold mb-4 capitalize text-gray-800 dark:text-gray-200">
-              {category}
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {tools.map((tool, index) => (
-                <motion.div
-                  key={index}
-                  className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center text-center"
-                  whileHover={{ y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <img
-                    src={tool.icon || "/placeholder.svg"}
-                    alt={tool.name}
-                    className="w-12 h-12 mb-2"
-                    onError={(e) => {
-                      e.target.src = "/placeholder.svg?height=50&width=50";
-                    }}
-                  />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    {tool.name}
-                  </span>
-                </motion.div>
-              ))}
+        {/* Preview of tools */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+          {Object.values(toolsData)
+            .flat()
+            .slice(0, 8)
+            .map((tool, index) => (
+              <motion.div
+                key={index}
+                className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center text-center opacity-75 hover:opacity-100 transition-opacity duration-300"
+                whileHover={{ y: -5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <img
+                  src={tool.icon || "/placeholder.svg"}
+                  alt={tool.name}
+                  className="w-10 h-10 mb-2"
+                  onError={(e) => {
+                    e.target.src = "/placeholder.svg?height=50&width=50";
+                  }}
+                />
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                  {tool.name}
+                </span>
+              </motion.div>
+            ))}
+        </div>
+      </motion.div>
+
+      {/* Gallery Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="mb-16"
+      >
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Gallery
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            A collection of my work, travels, and creative moments captured
+            through the lens
+          </p>
+        </div>
+
+        {/* Masonry Grid */}
+        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+          {galleryImages.map((image, index) => (
+            <div key={image.id} className="break-inside-avoid">
+              <GalleryImage image={image} index={index} />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </motion.div>
 
       {/* Back to Home Button */}
@@ -423,7 +677,7 @@ export default function About() {
         </Link>
       </motion.div>
 
-      {/* Modal */}
+      {/* Service Modal */}
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
@@ -437,6 +691,9 @@ export default function About() {
           ))}
         </div>
       </Modal>
+
+      {/* Toolbox Modal */}
+      <ToolboxModal isOpen={isToolboxModalOpen} onClose={closeToolboxModal} />
     </div>
   );
 }
