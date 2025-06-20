@@ -70,7 +70,7 @@ export default function Home() {
 
         {/* Animated text description with typewriter effect */}
         <motion.div
-          className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 h-8"
+          className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 h-8 my-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -158,8 +158,9 @@ export default function Home() {
       </motion.div>
 
       {/* Right Section - Image with Trail Effect */}
+      {/* bg-gradient-to-br from-gray-100 to-gray-200 dark:from-black dark:to-black : remove css */}
       <motion.div
-        className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 overflow-hidden"
+        className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-screen   overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}

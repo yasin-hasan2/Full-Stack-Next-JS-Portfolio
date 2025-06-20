@@ -100,7 +100,7 @@ export default function Sidebar() {
                 <DarkAndLightButton />
               </div>
             </div>
-            <h2 className="text-xl font-bold text-white">Your Name</h2>
+            <h2 className="text-xl font-bold text-white">Yasin Al-Hasan</h2>
             <p className="text-white/80">Developer & Designer</p>
           </div>
 

@@ -94,7 +94,7 @@ export default function Contact() {
           className="text-center mb-16"
         >
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            Get In{" "}
+            🚀 Get In{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">
               Touch
             </span>
